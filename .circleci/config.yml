@@ -1,0 +1,25 @@
+version: 2.1
+orbs:
+  docker: circleci/docker@1.5.0
+jobs:
+  compilation_et_test:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install --user --no-cache-dir -r requirements.txt
+      - run:
+          name: Run tests
+          command: python3 manage.py test
+
+  # build_push_docker_image:
+  #   docker:
+  #     - image: circleci/python:3.9
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: build app binary
+  #         command: |
+  #           pip install --user --no-cache-dir -r requirements.txt
