@@ -14,6 +14,12 @@ jobs:
           name: Run tests
           command: python3 manage.py test
 
+
+  workflows:
+    test_build_deploy:
+      jobs:
+        - compilation_et_test
+
   # build_push_docker_image:
   #   docker:
   #     - image: circleci/python:3.9
