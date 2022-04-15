@@ -10,4 +10,4 @@ COPY . .
 RUN pip install -r requirements.txt
 
 
-CMD python ./manage.py runserver -d -p 8000:8000
+CMD python manage.py runserver 0.0.0.0:8000
