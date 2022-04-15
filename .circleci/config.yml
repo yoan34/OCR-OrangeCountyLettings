@@ -32,8 +32,10 @@ jobs:
 workflows:
   test_build_deploy:
     jobs:
-      - compilation_et_test
+      - compilation_et_test:
+          context: orangeCountyLetting
       - build_push_docker_image:
+          context: orangeCountyLetting
           requires:
             - compilation_et_test
 
