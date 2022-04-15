@@ -30,6 +30,18 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_PSEUDO --password-stdin
             docker push $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1
 
+  build_push_heroku:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: build and deploy image to build_push_heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:login
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:push -a $HEROKU_APP_NAME web
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:release -a $HEROKU_APP_NAME web
+
 workflows:
   test_build_deploy:
     jobs:
@@ -39,5 +51,9 @@ workflows:
           context: orangeCountyLetting
           requires:
             - compilation_et_test
+      - build_push_heroku:
+          context: orangeCountyLetting
+          requires:
+            - build_push_docker_image
 
 
