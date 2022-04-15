@@ -41,7 +41,6 @@ jobs:
             HEROKU_API_KEY=$HEROKU_API_KEY heroku container:login
             HEROKU_API_KEY=$HEROKU_API_KEY heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=$HEROKU_API_KEY heroku container:release -a $HEROKU_APP_NAME web
-            HEROKU_API_KEY=$HEROKU_API_KEY heroku open -a=$HEROKU_APP_NAME
 
 workflows:
   test_build_deploy:
@@ -52,9 +51,17 @@ workflows:
           context: orangeCountyLetting
           requires:
             - compilation_et_test
+          filters:
+              branches:
+                only:
+                  - main
       - build_push_heroku:
           context: orangeCountyLetting
           requires:
             - build_push_docker_image
+          filters:
+              branches:
+                only:
+                  - main
 
 
