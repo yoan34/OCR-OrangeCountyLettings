@@ -5,9 +5,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 WORKDIR /app
 
-COPY . .
+COPY requirements.txt /app/
 
 RUN pip install -r requirements.txt
 
+COPY . /app/
 
 CMD python manage.py runserver 0.0.0.0:8000
