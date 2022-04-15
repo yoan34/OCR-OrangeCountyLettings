@@ -27,6 +27,7 @@ jobs:
           name: build docker image
           command: |
             docker build -t $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1 .
+            docker $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_PSEUDO --password-stdin
             docker push $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1
 
 workflows:
