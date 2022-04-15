@@ -26,7 +26,7 @@ jobs:
       - run:
           name: build docker image
           command: |
-            docker build -t $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1 .
+            docker build -t orange-county-lettings:$CIRCLE_SHA1 .
             docker push $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1
 
 workflows:
