@@ -12,7 +12,7 @@ jobs:
           command: pip install --user --no-cache-dir -r requirements.txt
       - run:
           name: Run tests
-          command: python3 manage.py test
+          command: python3 manage.py test -v 2
 
 
 workflows:
