@@ -9,6 +9,9 @@ WORKDIR /app
 
 COPY requirements.txt /app/
 
+ARG SENTRY_DSN
+ENV SENTRY_DSN $SENTRY_DSN
+
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
