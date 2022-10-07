@@ -24,7 +24,7 @@ jobs:
       - run:
           name: build docker image
           command: |
-            docker build -t $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1 --build-arg SENTRY_DSN=$SENTRY_DSN .
+            docker build -t $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1 .
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_PSEUDO --password-stdin
             docker push $DOCKERHUB_PSEUDO/orange-county-lettings:$CIRCLE_SHA1
 
@@ -38,7 +38,7 @@ jobs:
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=$HEROKU_API_KEY heroku container:login
             HEROKU_API_KEY=$HEROKU_API_KEY heroku apps | grep $HEROKU_APP_NAME && echo "app already exist" || heroku apps:create $HEROKU_APP_NAME
-            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:push web -a=$HEROKU_APP_NAME
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:push web -a=$HEROKU_APP_NAME --arg SENTRY_DSN=$SENTRY_DSN
             HEROKU_API_KEY=$HEROKU_API_KEY heroku container:release -a $HEROKU_APP_NAME web
 
 workflows:
