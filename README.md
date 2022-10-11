@@ -1,7 +1,3 @@
-[[_TOC_]]
-
-## Développement local
-
 ### Créer l'environnement virtuel
 
 - `python -m venv venv`
